@@ -38,6 +38,7 @@ Now move to __/src__ folder and try out first recognition with this command:
 python3 recognizer_image.py 
 ```
 Real time run:
+```
 python3 recognizer_stream.py
 ```
 Follow this link to see an example of video streaming [Streaming](https://youtu.be/WiPc3OY6Fgc)
