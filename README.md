@@ -1,6 +1,6 @@
-# Face Recognition with InsightFace
+# Face Recognition with MTCNN(face detect) + InsightFace(recognize)
 Recognize and manipulate faces with Python and its support libraries.  
-The project uses [MTCNN](https://github.com/ipazc/mtcnn) for detecting faces, then applies a simple alignment for each detected face and feeds those aligned faces into embeddings model provided by [InsightFace](https://github.com/deepinsight/insightface). Finally, a softmax classifier was put on top of embedded vectors for classification task.
+Bài toán sử dụng [MTCNN](https://github.com/ipazc/mtcnn) để detecting khuôn mặt, sau đó là tinh chỉnh khuôn mặt(xoay về đúng hướng) trước khi embedding face bằng model insightFace (vector 512D)[InsightFace](https://github.com/deepinsight/insightface). Cuối cùng, Neuron Network(softmax) + cosinSimilarity để dự đoán khuôn mặt thuộc class nào hoặc unknow
 
 ## Getting started
 ### Requirements
@@ -11,41 +11,41 @@ The project uses [MTCNN](https://github.com/ipazc/mtcnn) for detecting faces, th
 - tensorflow
 - Linux
 ### Installing 
-Check update:
+Kiểm tra update:
 ```
 sudo apt-get update
 ```
-Install python:
+Cài đặt python:
 ```
 sudo apt-get install python3.6
 ```
-Install pip:
+Cài đặt pip:
 ```
 sudo apt install python3-pip
 ```
-Most of the necessary libraries were installed and stored in `env/` folder, so what we need is installing `virtualenv` to use this enviroment.  
+Cài đặt môi trường ảo.  
 Install virtualenv:
 ```
 sudo pip3 install virtualenv virtualenvwrapper
 ```
 ## Usage
-First, go to directory that you have cloned, activate __env__ to use installed package, alternatively, you must install all packages that necessary for this project.
+Chạy môi trường ảo: vào thư mục đã clone và chạy:
 ```
 source env/bin/activate
 ```
-Now move to __/src__ folder and try out first recognition with this command:
+Vào thư mục __/src__ và chạy lệnh sau để nhận diện bằng ảnh:
 ```
 python3 recognizer_image.py 
 ```
-Realtime write command
+Nhận diện bằng camera:
 ```
 python3 recognizer_stream.py
 ```
-Follow this link to see an example of video streaming [Streaming](https://youtu.be/WiPc3OY6Fgc)
+
 ## Build your own faces recognition system
-By default, most of the input and output arguments were provided, models and embeddings is set default stored in `/src/outputs/`.  
+Mặc định, các file model và embedding face được lưu trong `/src/outputs/`.  
 ### 1. Prepare your data 
-Our training datasets were built as following structure:
+Tổ chức thư mục:
 ```
 /datasets
   /train
@@ -63,14 +63,14 @@ Our training datasets were built as following structure:
   /videos_input
   /videos_output
 ```
-In each `/person_x` folder, put your face images corresponding to _person_name_ that has been resized to _112x112_ (input size for InsightFace). Here I provided two ways to get faces data from your webcam and video stored in your storage.  
-__a. Get faces from camera__  
+Mỗi thư mục `/person_x`, chứa ảnh khuôn mặt đã được cắt với tên thư mục _person_name_ và được được resize về kích thước 112 x 112 (kích thước đầu vào của InsightFace). Sau đây là các cách để tạo .  
+__b. Get faces from camera__  
 Run following command, with `--faces` defines how many faces you want to get, _default_ is 20
 ```
 python3 get_faces_from_camera.py [--faces 'num_faces'] [--output 'path/to/output/folder']
 ```
 Here `[--cmd]` means _cmd_ is optional, if not provide, script will run with its default settings.  
-__b. Get faces from video__  
+__c. Get faces from video__  
 Prepare a video that contains face of the person you want to get and give the path to it to `--video` argument:
 ```
 python3 get_faces_from_video.py [--video 'path/to/input/video'] [--output 'path/to/output/folder']
@@ -89,15 +89,15 @@ python3 train_softmax.py [--embeddings 'path/to/embeddings/file'] [--model 'path
 
 ### 4. Run
 Yep!! Now you have a trained model, let's enjoy it!  
-Face recognization with image as input:
+Face recognization with image as input (nhận diện ảnh):
 ```
 python3 recognizer_image.py [--image-in 'path/to/test/image'] [...]
 ```
-Face recognization with video as input:
+Face recognization with video as input (nhận diện trong video):
 ```
 python3 recognizer_video.py [--video 'path/to/test/video'] [...]
 ```
-Face recognization with camera:
+Face recognization with camera (realtime):
 ```
 python3 recognizer_stream.py
 ```
