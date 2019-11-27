@@ -41,7 +41,6 @@ Real time run:
 ```
 python3 recognizer_stream.py
 ```
-Follow this link to see an example of video streaming [Streaming](https://youtu.be/WiPc3OY6Fgc)
 ## Build your own faces recognition system
 By default, most of the input and output arguments were provided, models and embeddings is set default stored in `/src/outputs/`.  
 ### 1. Prepare your data 
