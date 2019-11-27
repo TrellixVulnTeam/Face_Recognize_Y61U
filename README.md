@@ -1,6 +1,6 @@
 # Face Recognition with InsightFace
 Recognize and manipulate faces with Python and its support libraries.  
-The project uses [MTCNN](https://github.com/ipazc/mtcnn) for detecting faces, then applies a simple alignment for each detected face and feeds those aligned faces into embeddings model provided by [InsightFace](https://github.com/deepinsight/insightface). Finally, a softmax classifier was put on top of embedded vectors for classification task.
+The project uses [MTCNN](https://github.com/ipazc/mtcnn) for detecting faces, then applies a simple alignment for each detected face and feeds those aligned faces into embeddings model provided by [InsightFace](https://github.com/deepinsight/insightface). Finally, a softmax classifier and cosinSimilarity were put on top of embedded vectors for classification task.
 
 ## Getting started
 ### Requirements
@@ -75,18 +75,37 @@ Prepare a video that contains face of the person you want to get and give the pa
 python3 get_faces_from_video.py [--video 'path/to/input/video'] [--output 'path/to/output/folder']
 ``` 
 As I don't provide stop condition to this script, so that you can get as many faces as you want, you can also press __q__ button to stop the process.</br>
-  
+__c. Create face from `/data`__
+```
+/data
+  /person1
+    + img_01.jpg
+    + img_02.jpg
+    + ...
+  /person2
+    + img_01.jpg
+    + img_02.jpg
+    + ...
+  / ...
+```
+You also put into `data/person_name/` image free size has only one face. Then run command:
+```
+python3 create_dataset.py
+```
+Model MTCNN will be detected face, cropped and put into  `dataset/train/person_name/`
 The default output folder is `/unlabeled_faces`, select all faces that match the person you want, and copy them to `person_name` folder in `train`. Do the same things for others person to build your favorite datasets.
-### 2. Generate face embeddings
+### 2. Download pre-trained models
+Visited [here](https://www.dropbox.com/s/tj96fsm6t6rq8ye/model-r100-arcface-ms1m-refine-v2.zip?dl=0) download models pre-trained(include 3 file log, model-0000.params, models-symbols.json) and put into `/insightface/models/model-y1-test1`
+### 3. Generate face embeddings
 ```
 python3 faces_embedding.py [--dataset 'path/to/train/dataset'] [--output 'path/to/out/put/model']
 ```
-### 3. Train classifier with softmax
+### 4. Train classifier with softmax
 ```
 python3 train_softmax.py [--embeddings 'path/to/embeddings/file'] [--model 'path/to/output/classifier_model'] [--le 'path/to/output/label_encoder']
 ```
 
-### 4. Run
+### 5. Run
 Yep!! Now you have a trained model, let's enjoy it!  
 Face recognization with image as input:
 ```
