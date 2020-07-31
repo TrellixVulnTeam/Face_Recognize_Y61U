@@ -129,4 +129,3 @@ In my case, I have changed __line 46__ in _face_model_ `ctx = mx.cpu(0)` to use 
 - Thanks to everyone who works on all the awesome Python data science libraries like numpy, scipy, scikit-image, pillow, etc, etc that makes this kind of stuff so easy and fun in Python.
 - Thanks to Jia Guo and [Jiankang Deng](https://jiankangdeng.github.io/) for their InsightFace project
 - Thanks to [Adrian Rosebrock](https://www.pyimagesearch.com/author/adrian/) for his useful tutorials in [pyimagesearch](https://www.pyimagesearch.com/) that help me a lots in building this project.
-thank you
